@@ -1,4 +1,5 @@
 import { openModal, closeModal } from "./modals.js";
+import { getData } from "./api.js";
 
 export const authFunc = () => {
   const authBtn = document.getElementById("open-auth-btn");
@@ -35,13 +36,16 @@ export const authFunc = () => {
 
   // проверяем есть что-то в localstorage при помощи getItem
   const checkAuth = () => {
-    // console.log(localStorage.getItem("auth"));
-    // или можем развернуть данные - получить объект
-    // console.log(JSON.parse(localStorage.getItem("auth")));
-    // проверяем существует ли объект - если да то вызываем функцию
-    if (JSON.parse(localStorage.getItem("auth"))) {
-      login();
-    }
+    const user = JSON.parse(localStorage.getItem("auth"));
+    if (user) {
+      getData('/profile').then((data) => { 
+        if ((data.login && data.login === user.login) && (data.password && data.password === user.password)) {
+          login();
+        } else {
+          alert('Вы ввели неверные данные!')
+        }
+      });
+    } 
   };
 
   loginBtn.addEventListener("click", () => {
@@ -52,11 +56,13 @@ export const authFunc = () => {
       login: loginInput.value,
       password: passwordInput.value,
     };
-    // передаем ключ по которому будем сохранять данные user т.е auth - первым аргументом
-    // передим объект в строку т.е данные в виде строки - второым аргументом
-    localStorage.setItem("auth", JSON.stringify(user));
-
-    login();
+    // теперь можем проверить с данными что ввели в модальном окне - если не совпадают то пишем ошибку
+    getData('/profile').then((data) => { 
+      if ((data.login && data.login === user.login) && (data.password && data.password === user.password)) {
+        localStorage.setItem("auth", JSON.stringify(data));
+        login();
+      } 
+    });
   });
 
   logoutBtn.addEventListener("click", () => {
