@@ -60,6 +60,7 @@ export const authFunc = () => {
     getData('/profile').then((data) => { 
       if ((data.login && data.login === user.login) && (data.password && data.password === user.password)) {
         localStorage.setItem("auth", JSON.stringify(data));
+        console.log(data)
         login();
       } 
     });
@@ -70,9 +71,10 @@ export const authFunc = () => {
     logout();
   });
 
-  openCartBtn.addEventListener('click', () => {
-    openModal(cartModal);    
-  })
+  // пересено в файл cart.js
+  // openCartBtn.addEventListener('click', () => {
+  //   openModal(cartModal);    
+  // })
   
   checkAuth();
 };
