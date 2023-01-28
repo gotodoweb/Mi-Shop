@@ -62,22 +62,16 @@
   ],
   "cart": [
     {
-      "id": 0,
+      "id": 1,
       "name": "Xiaomi Redmi A1+ 2/32GB (голубой)",
-      "count": 1,
-      "price": 4990
+      "count": 0,
+      "price": "11500"
     },
     {
-      "id": 1,
-      "name": "Red Line Ultimate для Xiaomi Redmi 9C (оранжевый)",
+      "name": "Xiaomi Redmi A1+ 2/32GB (голубой)",
+      "price": 11500,
       "count": 1,
-      "price": 290
-    },
-    {
-      "id": 1,
-      "name": "Amazfit GTS 4 mini (черный)",
-      "count": 1,
-      "price": 7490
+      "id": 2
     }
   ]
 }

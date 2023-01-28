@@ -1,6 +1,7 @@
 import { getData } from "./api";
 
 export const categoriesFunc = () => {
+
   // fetch('http://localhost:3001/categories')
   //   .then((response) => {
   //     return response.json();
@@ -9,8 +10,10 @@ export const categoriesFunc = () => {
   //     console.log(data)
   //   });
   const container = document.getElementById("categories-container");
+  const catalogSearch = document.querySelector('.catalog-search')
 
   const render = (data) => {
+    container.innerHTML = ''
     data.forEach((item) => {
       // console.log(item);
       container.insertAdjacentHTML(
@@ -30,6 +33,17 @@ export const categoriesFunc = () => {
       );
     });
   };
+
+  catalogSearch.addEventListener("input", (event) => {
+    console.log(event.target.value);
+    getData(`/categories?q=${event.target.value}`)
+      .then((data) => {
+        render(data);
+      })
+      .catch((error) => {
+        console.error("Произошла ошибка!");
+      });
+  })
 
   getData("/categories")
     .then((data) => {
